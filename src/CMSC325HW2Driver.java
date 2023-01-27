@@ -8,6 +8,7 @@
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 public class CMSC325HW2Driver extends JPanel {
@@ -19,6 +20,10 @@ public class CMSC325HW2Driver extends JPanel {
   static double scaleY = 1.0;
   ImageTemplate myImages = new ImageTemplate();
   BufferedImage tImage = myImages.getImage(ImageTemplate.letterT);
+  BufferedImage circleImage = myImages.getImage(ImageTemplate.circle);
+
+  BufferedImage xImage = myImages.getImage(ImageTemplate.letterX);
+
   // A counter that increases by one in each frame.
   private int frameNumber;
   // The time, in milliseconds, since the animation started.
@@ -49,7 +54,7 @@ public class CMSC325HW2Driver extends JPanel {
     final long startTime = System.currentTimeMillis();
 
     animationTimer = new Timer(1600, e -> {
-      if (panel.frameNumber > 3) {
+      if (panel.frameNumber > 5) {
         panel.frameNumber = 0;
       } else {
         panel.frameNumber++;
@@ -86,9 +91,62 @@ public class CMSC325HW2Driver extends JPanel {
      * transformed coordinate system.
      */
     // Controls your zoom and area you are looking at
-    applyWindowToViewportTransformation(g2, -75, 75, -75, 75, true);
+    applyWindowToViewportTransformation(g2, -150, 150, -150, 150, true);
 
+    AffineTransform savedTransform = g2.getTransform();
+    System.out.println("Frame is: " + frameNumber);
+    switch (frameNumber) {
+      case 1 -> {
+        translateX = 0;
+        translateY = 0;
+        scaleX = 0;
+        scaleY = 0;
+        rotation = 0;
+      }
+      case 2 -> {
+        translateX = -10;
+        translateY = 12;
+      }
+      case 3 -> {
+        translateX = -10;
+        translateY = 12;
+        rotation = -55 * Math.PI / 180.0;
+      }
+      case 4 -> {
+        translateX = -10;
+        translateY = 12;
+        rotation = (-55 + 70) * Math.PI / 180.0;
+      }
+      case 5 -> {
+        translateX = -10;
+        translateY = 12;
+        rotation = (-55 + 70) * Math.PI / 180.0;
+        scaleY = 1.5;
+        scaleX = 3;
+      }
+      default -> {
+      }
+    }
+    g2.translate(translateX, translateY);
+    g2.translate(-10, 10);
+    g2.rotate(rotation);
+    g2.scale(scaleX, scaleY);
+    g2.drawImage(tImage, 0, 0, this);
+    g2.setTransform(savedTransform);
 
+    g2.translate(translateX, translateY);
+    g2.translate(10, -10);
+    g2.rotate(rotation);
+    g2.scale(scaleX, scaleY);
+    g2.drawImage(circleImage, 0, 0, this);
+    g2.setTransform(savedTransform);
+
+    g2.translate(translateX, translateY);
+    g2.translate(10, -10);
+    g2.rotate(rotation);
+    g2.scale(scaleX, scaleY);
+    g2.drawImage(xImage, 0, 0, this);
+    g2.setTransform(savedTransform);
   }
 
   private void applyWindowToViewportTransformation(Graphics2D g2,
