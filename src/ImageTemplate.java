@@ -1,3 +1,6 @@
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
 public class ImageTemplate {
   private final static int IMGSIZEX = 30;
   // Y Size of Images
