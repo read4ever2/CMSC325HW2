@@ -21,8 +21,9 @@ public class CMSC325HW2Driver extends JPanel {
   ImageTemplate myImages = new ImageTemplate();
   BufferedImage tImage = myImages.getImage(ImageTemplate.letterT);
   BufferedImage circleImage = myImages.getImage(ImageTemplate.circle);
-
   BufferedImage xImage = myImages.getImage(ImageTemplate.letterX);
+  BufferedImage eImage = myImages.getImage(ImageTemplate.letterE);
+  BufferedImage yinYangImage = myImages.getImage(ImageTemplate.yinYang);
 
   // A counter that increases by one in each frame.
   private int frameNumber;
@@ -128,24 +129,38 @@ public class CMSC325HW2Driver extends JPanel {
       }
     }
     g2.translate(translateX, translateY);
-    g2.translate(-10, 10);
+    g2.translate(-20, 20);
     g2.rotate(rotation);
     g2.scale(scaleX, scaleY);
     g2.drawImage(tImage, 0, 0, this);
     g2.setTransform(savedTransform);
 
     g2.translate(translateX, translateY);
-    g2.translate(10, -10);
+    g2.translate(20, -20);
     g2.rotate(rotation);
     g2.scale(scaleX, scaleY);
     g2.drawImage(circleImage, 0, 0, this);
     g2.setTransform(savedTransform);
 
     g2.translate(translateX, translateY);
-    g2.translate(10, -10);
+    g2.translate(-20, -20);
     g2.rotate(rotation);
     g2.scale(scaleX, scaleY);
     g2.drawImage(xImage, 0, 0, this);
+    g2.setTransform(savedTransform);
+
+    g2.translate(translateX, translateY);
+    g2.translate(20, 20);
+    g2.rotate(rotation);
+    g2.scale(scaleX, scaleY);
+    g2.drawImage(eImage, 0, 0, this);
+    g2.setTransform(savedTransform);
+
+    g2.translate(translateX, translateY);
+    g2.translate(40, 40);
+    g2.rotate(rotation);
+    g2.scale(scaleX, scaleY);
+    g2.drawImage(yinYangImage, 0, 0, this);
     g2.setTransform(savedTransform);
   }
 
