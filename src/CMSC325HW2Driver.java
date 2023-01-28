@@ -28,11 +28,6 @@ public class CMSC325HW2Driver extends JPanel {
   // A counter that increases by one in each frame.
   private int frameNumber;
   // The time, in milliseconds, since the animation started.
-  private long elapsedTimeMillis;
-  // This is the measure of a pixel in the coordinate system
-  // set up by calling the applyLimits method.  It can be used
-  // for setting line widths, for example.
-  private float pixelSize;
 
   public CMSC325HW2Driver() {
     setPreferredSize(new Dimension(800, 600));
@@ -51,16 +46,13 @@ public class CMSC325HW2Driver extends JPanel {
     window.setResizable(false);
     window.setLocationRelativeTo(null);
 
-    Timer animationTimer;
-    final long startTime = System.currentTimeMillis();
 
-    animationTimer = new Timer(1600, e -> {
-      if (panel.frameNumber > 5) {
+    Timer animationTimer = new Timer(1000, e -> {
+      if (panel.frameNumber > 3) {
         panel.frameNumber = 0;
       } else {
         panel.frameNumber++;
       }
-      panel.elapsedTimeMillis = System.currentTimeMillis() - startTime;
       panel.repaint();
     });
 
@@ -69,7 +61,9 @@ public class CMSC325HW2Driver extends JPanel {
 
   }
 
+  @Override
   protected void paintComponent(Graphics g) {
+    super.paintComponent(g);
     /* First, create a Graphics2D drawing context for drawing on the panel.
      * (g.create() makes a copy of g, which will draw to the same place as g,
      * but changes to the returned copy will not affect the original.)
@@ -97,67 +91,67 @@ public class CMSC325HW2Driver extends JPanel {
     AffineTransform savedTransform = g2.getTransform();
     System.out.println("Frame is: " + frameNumber);
     switch (frameNumber) {
-      case 1 -> {
+      case 0 -> {
         translateX = 0;
         translateY = 0;
-        scaleX = 0;
-        scaleY = 0;
+        scaleX = 1.0;
+        scaleY = 1.0;
         rotation = 0;
+      }
+      case 1 -> {
+        translateX = -10;
+        translateY = 12;
       }
       case 2 -> {
         translateX = -10;
         translateY = 12;
+        rotation = 55 * Math.PI / 180.0;
       }
       case 3 -> {
         translateX = -10;
         translateY = 12;
-        rotation = -55 * Math.PI / 180.0;
+        rotation = (55 - 70) * Math.PI / 180.0;
       }
       case 4 -> {
         translateX = -10;
         translateY = 12;
-        rotation = (-55 + 70) * Math.PI / 180.0;
-      }
-      case 5 -> {
-        translateX = -10;
-        translateY = 12;
-        rotation = (-55 + 70) * Math.PI / 180.0;
+        rotation = (55 - 70) * Math.PI / 180.0;
         scaleY = 1.5;
         scaleX = 3;
       }
       default -> {
       }
     }
+
     g2.translate(translateX, translateY);
-    g2.translate(-20, 20);
+    g2.translate(-80, 80);
     g2.rotate(rotation);
     g2.scale(scaleX, scaleY);
     g2.drawImage(tImage, 0, 0, this);
     g2.setTransform(savedTransform);
 
     g2.translate(translateX, translateY);
-    g2.translate(20, -20);
+    g2.translate(80, -80);
     g2.rotate(rotation);
     g2.scale(scaleX, scaleY);
     g2.drawImage(circleImage, 0, 0, this);
     g2.setTransform(savedTransform);
 
     g2.translate(translateX, translateY);
-    g2.translate(-20, -20);
+    g2.translate(-80, -80);
     g2.rotate(rotation);
     g2.scale(scaleX, scaleY);
     g2.drawImage(xImage, 0, 0, this);
     g2.setTransform(savedTransform);
 
     g2.translate(translateX, translateY);
-    g2.translate(20, 20);
+    g2.translate(80, 80);
     g2.rotate(rotation);
     g2.scale(scaleX, scaleY);
     g2.drawImage(eImage, 0, 0, this);
     g2.setTransform(savedTransform);
 
     g2.translate(translateX, translateY);
-    g2.translate(40, 40);
     g2.rotate(rotation);
     g2.scale(scaleX, scaleY);
     g2.drawImage(yinYangImage, 0, 0, this);
@@ -187,8 +181,8 @@ public class CMSC325HW2Driver extends JPanel {
     }
     g2.scale(width / (right - left), height / (bottom - top));
     g2.translate(-left, -top);
-    double pixelWidth = Math.abs((right - left) / width);
-    double pixelHeight = Math.abs((bottom - top) / height);
-    pixelSize = (float) Math.max(pixelWidth, pixelHeight);
+    // This is the measure of a pixel in the coordinate system
+    // set up by calling the applyLimits method.  It can be used
+    // for setting line widths, for example.
   }
 }

@@ -39,7 +39,7 @@ public class ImageTemplate {
       {6, 6, 6, 6, 6, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6},
       {6, 6, 6, 6, 6, 6, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6},
       {6, 6, 6, 6, 6, 6, 6, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6},
-      {6, 6, 6, 6, 6, 6, 6, 6, 6, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 6, 6},
+      {6, 6, 6, 6, 6, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 6, 6},
       {6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6}
   };
 
@@ -179,7 +179,7 @@ public class ImageTemplate {
         BufferedImage.TYPE_INT_RGB);
     for (int x = 0; x < IMGSIZEX; x++) {
       for (int y = 0; y < IMGSIZEY; y++) {
-        int pixelColor = data[x][y];
+        int pixelColor = data[y][x];
         switch (pixelColor) {
           case 0 -> pixelColor = Color.WHITE.getRGB();
           case 1 -> pixelColor = Color.BLACK.getRGB();
