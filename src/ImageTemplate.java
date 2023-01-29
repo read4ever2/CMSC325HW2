@@ -179,7 +179,7 @@ public class ImageTemplate {
         BufferedImage.TYPE_INT_RGB);
     for (int x = 0; x < IMGSIZEX; x++) {
       for (int y = 0; y < IMGSIZEY; y++) {
-        int pixelColor = data[y][x];
+        int pixelColor = data[x][y];
         switch (pixelColor) {
           case 0 -> pixelColor = Color.WHITE.getRGB();
           case 1 -> pixelColor = Color.BLACK.getRGB();
@@ -190,7 +190,7 @@ public class ImageTemplate {
           default -> pixelColor = Color.gray.getRGB();
         }
         // Set Colors based on Binary Image value
-        image.setRGB(x, y, pixelColor);
+        image.setRGB(y, IMGSIZEX - (x + 1), pixelColor);
       } // End for y.
     } // End for x.
     return image;
